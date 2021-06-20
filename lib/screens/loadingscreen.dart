@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:gp/main.dart';
 import '../Modules/Usedcolors.dart';
 import 'package:gp/screens/loginScreen.dart';
+import 'package:gp/Modules/auth.dart';
+import 'package:gp/screens/homescreen.dart';
+import 'package:provider/provider.dart';
 import 'dart:async';
 
 
@@ -95,8 +98,19 @@ class _loadingscState extends State<loadingsc> {
   }
 
   startTime() async{
-    var duration = new Duration(seconds: 6);
+    var duration = new Duration(seconds: 5);
+    bool isAuth = await Provider.of<Auth>(context, listen: false).tryAutoLogin();
+
+    if(isAuth)
+      return new Timer(duration, homescreen);
     return new Timer(duration, loginscreen);
+  }
+
+  homescreen() {
+    Navigator.pushReplacementNamed(
+      context,
+      homeSc.routename,
+    );
   }
 
   loginscreen() {

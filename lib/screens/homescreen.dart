@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:gp/Modules/Usedcolors.dart';
 import 'package:gp/Modules/auth.dart';
 import 'package:gp/Modules/userInfo.dart';
@@ -11,6 +12,7 @@ import 'package:gp/screens/loginScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:android_intent/android_intent.dart';
 
 class homeSc extends StatefulWidget {
   static const routename = '/home';
@@ -29,6 +31,7 @@ class homeSc extends StatefulWidget {
 class _homeScState extends State<homeSc>{
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   User  signedUSer;
+  bool isLocationOn;
   @override
   void initState(){
     // TODO: implement initState
@@ -40,6 +43,8 @@ class _homeScState extends State<homeSc>{
     }
     );
     print("**********");
+    getLocationStatus();
+    //openLocationSetting();
     super.initState();
   }
 
@@ -60,14 +65,37 @@ class _homeScState extends State<homeSc>{
 
   }
 
+  getLocationStatus() async{
+
+    bool serviceEnabled;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    setState(() {
+      isLocationOn = serviceEnabled;
+    });
+
+    print("locacion is : $isLocationOn");
+
+  }
+
+  void openLocationSetting() async {
+    final AndroidIntent intent = new AndroidIntent(
+      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+    );
+    await intent.launch();
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext homecontext) {
     return Scaffold(
       key: _scaffoldKey,
       drawer: mydrawer(),
       body: Stack(
         fit: StackFit.expand,
         children: [
+
+          //Map photo
           Container(
               child: SvgPicture.asset(
                 "assets/images/2980959.svg",
@@ -78,6 +106,7 @@ class _homeScState extends State<homeSc>{
 
           Stack(
             children: [
+              //shadow on top of picture
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height/6,
@@ -94,32 +123,25 @@ class _homeScState extends State<homeSc>{
                   ),
                 ),
               ),
+              //Drawer button
               Container(
                 margin: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height / 15,
                     horizontal: 25),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: FloatingActionButton(
-                          backgroundColor: backcolor,
-                          child: Icon(
-                            Icons.short_text_rounded,
-                            size: 40,
-                          ),
-                          onPressed: () {
-                            opendrawer(context);
-                          }),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-
-                  ],
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: FloatingActionButton(
+                      backgroundColor: backcolor,
+                      child: Icon(
+                        Icons.short_text_rounded,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        opendrawer(context);
+                      }),
                 ),
               ),
+              //Floating location and places buttons
               Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
@@ -274,7 +296,8 @@ class _homeScState extends State<homeSc>{
     try {
       print('http get');
       final response = await http.get(
-          myUri);
+          myUri
+      );
 
       }catch(e){
         print(e);

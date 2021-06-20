@@ -28,6 +28,8 @@ dependencies:
   material_floating_search_bar: ^0.3.4
   provider: ^5.0.0
   flutter_svg: ^0.22.0
+  android_intent:
+  geolocator: ^7.1.0
   flutter:
     sdk: flutter
 
