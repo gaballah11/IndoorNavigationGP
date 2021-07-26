@@ -1,4 +1,4 @@
-import 'package:location_permissions/location_permissions.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gp/main.dart';

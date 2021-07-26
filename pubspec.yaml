@@ -24,12 +24,13 @@ dependencies:
   http: ^0.13.3
   shared_preferences: ^2.0.5
   intl_phone_field: ^1.4.2
-  location_permissions: ^3.0.0
   material_floating_search_bar: ^0.3.4
   provider: ^5.0.0
   flutter_svg: ^0.22.0
-  android_intent:
-  geolocator: ^7.1.0
+  location: ^4.3.0
+  wifi_iot: ^0.3.3
+  fluttertoast: ^8.0.7
+  photo_view: ^0.11.1
   flutter:
     sdk: flutter
 
@@ -52,7 +53,10 @@ flutter:
   assets:
     - assets/images/Sign in-02.png
     - assets/images/Loading-02.png
-    - assets/images/2980959.svg
+    - assets/images/usermark.png
+    - assets/images/lab7.png
+    - assets/images/floor.png
+    - assets/images/pin.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

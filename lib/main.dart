@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gp/Modules/auth.dart';
 import 'package:gp/screens/homescreen.dart';
 import 'package:gp/screens/loadingscreen.dart';
 import 'package:gp/screens/passResetScreen.dart';
+import 'package:gp/screens/placesScreen.dart';
 import 'package:gp/screens/signUpScreen.dart';
 import 'package:provider/provider.dart';
 import './Modules/Usedcolors.dart';
 import 'package:gp/screens/loginScreen.dart';
 
+import 'Modules/accessPoint.dart';
+import 'Modules/locator.dart';
+
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp]
+  );
   runApp(
     ChangeNotifierProvider(
-      create: (_) => Auth(),
-      child: MyApp(),
-    )
-
+        create: (_) => Auth(),
+        child: MyApp()
+    ),
   );
 }
 
@@ -39,6 +47,7 @@ class MyApp extends StatelessWidget {
         passResetSc.routename : (context) => passResetSc(),
         signUpSc.routename : (context) => signUpSc(),
         homeSc.routename : (context) => homeSc(),
+        //placesSc.routename : (context) => placesSc([]),
       },
     );
   }
