@@ -3,6 +3,7 @@
 This a Flutter application.
 
 Project idea is to locate user’s position inside indoor areas where GPS doesn’t work.
+
 The application can:
 - detect/locate the user’s position on the map (floor plan map of the place) equivalent to their current location on reality. 
 - select user's position manually.
