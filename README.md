@@ -12,3 +12,7 @@ The application can:
 - generate the shortest route where the user can navigate through.
 
 
+
+https://user-images.githubusercontent.com/48418000/133088760-5cb15051-a0b1-4265-9c0e-0557fe1861d3.mp4
+
+
